@@ -17,12 +17,29 @@
             <div style="{{ st.rowStyle }}">
               <span style="{{ st.badgeStyle }}">{{ st.badge }}</span>
               <span style="{{ st.nameStyle }}">{{ st.name }}</span>
+              <sc-if value="{{ st.hasTbTag }}" hint-placeholder-val="{{ false }}"><span style="{{ st.tbTagStyle }}" onClick="{{ st.onTbTap }}">{{ st.tbTag }}</span></sc-if>
               <span style="{{ st.recordStyle }}">{{ st.record }}</span>
               <span style="{{ st.diffStyle }}">{{ st.diff }}</span>
               <sc-if value="{{ st.advances }}" hint-placeholder-val="{{ false }}"><span style="{{ st.advStyle }}">ADV</span></sc-if>
             </div>
           </sc-for>
         </div>
+        <sc-if value="{{ pod.hasPlayoff }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ pod.playoffPrompts }}" as="pp" hint-placeholder-count="1">
+            <div style="{{ pod.playoffBoxStyle }}">
+              <div style="{{ pod.playoffTitleStyle }}">⚑ Tiebreaker — dead even at {{ pp.record }}</div>
+              <sc-if value="{{ pod.playoffInteractive }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:12px;color:#7A5A4A;">Play a 3-point playoff, then tap the winner:</div>
+                <sc-for list="{{ pp.teams }}" as="t" hint-placeholder-count="2">
+                  <button style="{{ pod.playoffBtnStyle }}" onClick="{{ t.onPick }}">🏆 {{ t.name }}</button>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ pod.playoffTvOnly }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13px;color:#C0623C;font-weight:600;">3-point playoff in progress…</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </sc-if>
         <div style="{{ pod.gridWrapStyle }}">
           <div style="{{ pod.gridStyle }}">
             <div style="{{ pod.cornerStyle }}"></div>
